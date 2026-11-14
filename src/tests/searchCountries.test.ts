@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { type Fetcher, makeSearchCountries } from "../core/searchCountries";
+import { type Fetcher, makeSearchCountries } from '../core/searchCountries';
 import { HttpError } from '../core/httpError';
 
 const respond =
@@ -7,15 +7,15 @@ const respond =
   async () =>
     new Response(body, { status });
 
-  /** It hangs until the signal is interrupted; then it branches off based on the cause of the signal (much like an actual fetch). */
+/** It hangs until the signal is interrupted; then it branches off based on the cause of the signal (much like an actual fetch). */
 const hanging: Fetcher = (_url, init) =>
   new Promise((_resolve, reject) => {
     init?.signal?.addEventListener('abort', () => reject(init.signal?.reason));
   });
 
-  const fresh = () => new AbortController().signal;
+const fresh = () => new AbortController().signal;
 
-  describe('searchCountries', () => {
+describe('searchCountries', () => {
   it('200 → массив стран', async () => {
     const search = makeSearchCountries(respond(JSON.stringify([{ name: 'Spain' }]), 200));
     await expect(search('spain', fresh())).resolves.toEqual([{ name: 'Spain' }]);

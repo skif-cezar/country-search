@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { debounce } from "../core/debounce";
+import { debounce } from '../core/debounce';
 
 describe('debounce', () => {
   beforeEach(() => vi.useFakeTimers());
@@ -26,4 +26,4 @@ describe('debounce', () => {
     vi.advanceTimersByTime(500);
     expect(fn).not.toHaveBeenCalled();
   });
-})
+});

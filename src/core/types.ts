@@ -14,3 +14,19 @@ export type RawCountry = Readonly<{
   currencies?: readonly Readonly<{ code?: string; name?: string; symbol?: string }>[];
   languages?: readonly Readonly<{ name?: string }>[];
 }>;
+
+/** Data for the card and for the details window. */
+export type CountryView = Readonly<{
+  id: string;
+  name: string;
+  flagUrl: string | null;
+  flagEmoji: string;
+  capital: string | null;
+  region: string | null;
+  population: number | null;
+  languages: readonly string[];
+  description: string;
+  area: number | null;
+  borders: readonly string[];
+  currencies: readonly string[];
+}>;
