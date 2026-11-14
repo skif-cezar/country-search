@@ -40,7 +40,7 @@ describe('mapCountryResponse', () => {
       flagUrl: null,
       languages: [],
       borders: [],
-      description: 'Описание недоступно.',
+      description: 'Description unavailable.',
     });
   });
 
