@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createCachedSearch } from '../core/requestCache';
+import { normalizeQuery } from '../core/normalizeQuery';
 
 const deferred = <T>() => {
   let resolve!: (v: T) => void;
@@ -8,6 +9,9 @@ const deferred = <T>() => {
     resolve = res;
     reject = rej;
   });
+
+  promise.catch(() => {});
+
   return { promise, resolve, reject };
 };
 

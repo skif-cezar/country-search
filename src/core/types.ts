@@ -30,3 +30,5 @@ export type CountryView = Readonly<{
   borders: readonly string[];
   currencies: readonly string[];
 }>;
+
+export type Search<T> = (query: string, signal: AbortSignal) => Promise<T>;
