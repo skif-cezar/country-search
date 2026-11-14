@@ -48,7 +48,7 @@ describe('searchController', () => {
     await vi.advanceTimersByTimeAsync(300);
     expect(controller.getState().view).toMatchObject({
       status: 'error',
-      message: 'Сервер вернул ошибку 500.',
+      message: 'The server returned an error 500.',
     });
     fail = false;
     controller.retry();
