@@ -8,10 +8,10 @@ export const createCountryFacts = (country: CountryView): HTMLElement => {
   factsList.classList.add('facts');
 
   const factsData = [
-    { label: 'Capital', value: country.capital },
-    { label: 'Region', value: country.region },
+    { label: 'Capital: ', value: country.capital },
+    { label: 'Region: ', value: country.region },
     {
-      label: 'Population',
+      label: 'Population: ',
       value: country.population !== null ? country.population.toLocaleString('ru-RU') : null,
     },
   ];

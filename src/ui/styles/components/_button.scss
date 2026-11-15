@@ -1,0 +1,17 @@
+.chip {
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-secondary);
+  background-color: var(--btn-bg-primary);
+  border-radius: 20px;
+  padding: 12px;
+  transition: all 0.2s;
+  box-shadow:
+    0 0 #0000,
+    0 0 #0000,
+    0 10px 15px -3px #4f46e533,
+    0 4px 6px -4px #4f46e533;
+
+  &:hover {
+    background-color: var(--btn-bg-primary-hover);
+  }
+}
