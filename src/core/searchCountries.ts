@@ -33,4 +33,5 @@ export const makeSearchCountries =
   };
 
 /** The global `fetch` is retrieved at the time of the call. */
-export const searchCountries = makeSearchCountries((input, init) => fetch(input, init));
+export const searchCountries: (query: string, signal: AbortSignal) => Promise<readonly RawCountry[]> =
+  makeSearchCountries((input, init) => fetch(input, init));

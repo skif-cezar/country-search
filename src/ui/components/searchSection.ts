@@ -10,9 +10,9 @@ export const createSearchSection = ({
   inputPlaceholder,
   history = [],
   onPick = () => {},
-}: SearchSectionOptions): HTMLElement => {
-  const search = document.createElement('section');
-  search.classList.add('search');
+}: SearchSectionOptions): { searchSection: HTMLElement; searchInput: HTMLInputElement; historySlot: HTMLElement } => {
+  const searchSection = document.createElement('section');
+  searchSection.classList.add('search');
 
   const searchLabel = document.createElement('label');
   searchLabel.classList.add('search__label');
@@ -28,12 +28,12 @@ export const createSearchSection = ({
   searchInput.autocomplete = 'off';
   searchInput.spellcheck = false;
 
-  search.append(searchLabel, searchInput);
+  searchSection.append(searchLabel, searchInput);
+
+  const historySlot = document.createElement('div');
+  historySlot.classList.add('history-slot');
 
   if (history.length > 0) {
-    const historySlot = document.createElement('div');
-    historySlot.classList.add('history-slot');
-
     const nav = document.createElement('nav');
     nav.classList.add('history');
     nav.setAttribute('aria-label', 'Query history');
@@ -62,9 +62,8 @@ export const createSearchSection = ({
     ul.append(fragment);
     nav.append(historyTitle, ul);
     historySlot.append(nav);
-
-    search.append(historySlot);
   }
+  searchSection.append(historySlot);
 
-  return search;
+  return { searchSection, searchInput, historySlot };
 };
