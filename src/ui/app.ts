@@ -8,6 +8,9 @@ export const mountApp = (host: HTMLElement, _controller: SearchController): void
     lead: 'Start typing the name of the country',
   });
 
+  const main = document.createElement('main');
+  main.classList.add('main');
+
   const searchSection = createSearchSection({
     label: 'Name of the country',
     inputPlaceholder: 'For example: spain',
@@ -18,5 +21,6 @@ export const mountApp = (host: HTMLElement, _controller: SearchController): void
     },
   });
 
-  host.append(header, searchSection);
+  main.append(searchSection);
+  host.append(header, main);
 };
