@@ -11,6 +11,11 @@ export const mountApp = (host: HTMLElement, _controller: SearchController): void
   const searchSection = createSearchSection({
     label: 'Name of the country',
     inputPlaceholder: 'For example: spain',
+    history: ['spain', 'bel'],
+    onPick: (q: string) => {
+      // eslint-disable-next-line no-console
+      console.log('Выбран элемент:', q);
+    },
   });
 
   host.append(header, searchSection);
