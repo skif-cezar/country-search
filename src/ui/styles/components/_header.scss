@@ -1,0 +1,59 @@
+@use '../abstracts' as *;
+
+// ==========================================
+// Header Component
+// ==========================================
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  z-index: 100;
+  margin: 20px auto 0px;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__title {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-accent);
+    letter-spacing: -0.025em;
+    font-size: var(--font-size-3xl);
+
+    &::after {
+      content: '';
+      background-image: url(/public/assets/images/location.png);
+      background-position: 50%;
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 40px;
+      height: 40px;
+      display: block;
+    }
+  }
+
+  &__lead {
+    font-size: var(--font-size-lg);
+  }
+}
+
+@media (max-width: 575.98px) {
+  .header {
+    justify-content: center;
+
+    &__container {
+      align-items: center;
+    }
+
+    &__title::after {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,41 @@
+@use '../abstracts' as *;
+
+// ==========================================
+// Dialog Component
+// ==========================================
+.details {
+  margin: auto;
+  width: min(100% - 32px, 544px);
+  padding: 24px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: 16px;
+
+  &::backdrop {
+    background: rgb(41 43 48 / 55%);
+    backdrop-filter: blur(2px);
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &__title {
+    font-size: var(--font-size-2xl);
+    color: var(--text-accent);
+  }
+
+  &__description {
+    margin: 16px 0;
+    font-weight: var(--font-weight-regular);
+    color: var(--text-primary);
+  }
+}
+
+@media (max-width: 575.98px) {
+  .details {
+    padding: 24px 16px;
+  }
+}

@@ -1,0 +1,38 @@
+@use '../abstracts' as *;
+
+// ==================================================
+// Button and Recent Requests button Components
+// ==================================================
+.button,
+.chip {
+  padding: 12px;
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-semibold);
+  background-color: var(--btn-bg-primary);
+  box-shadow:
+    0 0 #0000,
+    0 0 #0000,
+    0 10px 15px -3px #4f46e533,
+    0 4px 6px -4px #4f46e533;
+  transition: all 0.2s;
+}
+
+.button:hover,
+.chip:hover {
+  background-color: var(--btn-bg-primary-hover);
+}
+
+.button {
+  min-width: 160px;
+  border-radius: 12px;
+}
+
+.chip {
+  border-radius: 20px;
+}
+
+@media (max-width: 575.98px) {
+  .button {
+    width: 100%;
+  }
+}
