@@ -84,7 +84,6 @@ export const mountApp = (host: HTMLElement, controller: SearchController): void 
   const dialog = document.createElement('dialog');
   dialog.classList.add('details');
   dialog.setAttribute('aria-labelledby', 'details-title');
-  //dialog.addEventListener('click', () => controller.closeDetails());
 
   // Clicking on the backdrop (outside the content area) closes the window.
   dialog.addEventListener('click', (e: Event) => {
