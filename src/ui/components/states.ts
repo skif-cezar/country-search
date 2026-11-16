@@ -25,9 +25,13 @@ export const emptyState = (query: string): HTMLElement => {
   stateTitle.classList.add('state__title');
   stateTitle.textContent = 'Nothing found';
 
+  const queryElement = document.createElement('strong');
+  queryElement.classList.add('state__query');
+  queryElement.textContent = `«${query}»`;
+
   const stateText = document.createElement('p');
   stateText.classList.add('state__text');
-  stateText.textContent = `There are no countries matching the query «${query}». Please try a different name.`;
+  stateText.append('There are no countries matching the query ', queryElement, '. Please try a different name.');
 
   state.append(stateTitle, stateText);
 

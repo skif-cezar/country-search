@@ -81,6 +81,7 @@
   &__list {
     list-style: none;
     display: flex;
+    flex-wrap: wrap;
     gap: 12px;
     padding: 0;
   }
@@ -93,6 +94,38 @@
   margin-top: 16px;
 }
 
+// ==========================================
+// State: loading, success, empty
+// ==========================================
+.state {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  color: var(--text-warn);
+
+  &__title {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  &__text {
+    font-weight: var(--font-weight-regular);
+  }
+
+  &__query {
+    color: var(--text-accent);
+  }
+
+  &--loading {
+    color: var(--text-success);
+  }
+
+  &--error {
+    color: var(--text-error);
+  }
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -103,6 +136,25 @@
   clip: rect(0 0 0 0);
   white-space: nowrap;
   border: 0;
+}
+
+// ==========================================
+// Spinner
+// ==========================================
+.spinner {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  border: 0.25rem solid var(--text-success);
+  border-top-color: #005d3b;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 // ==========================================
