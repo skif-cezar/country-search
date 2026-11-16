@@ -30,3 +30,9 @@
 .chip {
   border-radius: 20px;
 }
+
+@media (max-width: 575.98px) {
+  .button {
+    width: 100%;
+  }
+}
