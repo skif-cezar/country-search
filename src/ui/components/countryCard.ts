@@ -1,23 +1,45 @@
 import { CountryView } from '../../core/types';
+import { formatList, formatNumber } from '../../utils/format';
+
+export interface FactItem {
+  readonly label: string;
+  readonly value: unknown;
+}
 
 /**
- * Facts: capital, region, population.
+ * Creates a flag DOM element (img or span) based on country data
  */
-export const createCountryFacts = (country: CountryView): HTMLElement => {
+export const createCountryFlagElement = (country: CountryView): HTMLImageElement | HTMLSpanElement => {
+  if (country.flagUrl) {
+    const img = document.createElement('img');
+    img.classList.add('flag');
+    img.src = country.flagUrl;
+    img.alt = `Flag: ${country.name}`;
+    img.width = 64;
+    img.height = 48;
+    img.loading = 'lazy';
+    img.decoding = 'async';
+
+    return img;
+  }
+
+  const span = document.createElement('span');
+  span.classList.add('flag', 'flag--emoji');
+  span.setAttribute('aria-hidden', 'true');
+  span.textContent = country.flagEmoji || '';
+
+  return span;
+};
+
+/**
+ * A helper function for generating the DOM structure of a list of facts.
+ */
+const renderFactsList = (items: FactItem[], additionalClasses: string[] = []): HTMLElement => {
   const factsList = document.createElement('dl');
-  factsList.classList.add('facts');
+  factsList.classList.add('facts', ...additionalClasses);
 
-  const factsData = [
-    { label: 'Capital: ', value: country.capital },
-    { label: 'Region: ', value: country.region },
-    {
-      label: 'Population: ',
-      value: country.population !== null ? country.population.toLocaleString('ru-RU') : null,
-    },
-  ];
-
-  factsData.forEach(({ label, value }) => {
-    if (value === null || value === '') return;
+  items.forEach(({ label, value }) => {
+    if (value === null || value === '' || value === undefined) return;
 
     const row = document.createElement('div');
     row.classList.add('facts__row');
@@ -36,6 +58,30 @@ export const createCountryFacts = (country: CountryView): HTMLElement => {
 };
 
 /**
+ * Creates a block of facts about a country (basic or detailed).
+ * @param country - Object containing country data
+ * @param isDetailed - Flag for displaying an extended set of facts
+ */
+export const createCountryFacts = (country: CountryView, isDetailed: boolean = false): HTMLElement => {
+  const factsData: FactItem[] = isDetailed
+    ? [
+        { label: 'Area: ', value: formatNumber(country.area, ' km²') },
+        { label: 'Borders: ', value: formatList(country.borders) },
+        { label: 'Languages: ', value: formatList(country.languages) },
+        { label: 'Currency: ', value: formatList(country.currencies) },
+      ]
+    : [
+        { label: 'Capital: ', value: country.capital },
+        { label: 'Region: ', value: country.region },
+        { label: 'Population: ', value: formatNumber(country.population) },
+      ];
+
+  const classNames = isDetailed ? ['facts--details'] : [];
+
+  return renderFactsList(factsData, classNames);
+};
+
+/**
  * Card. Making it clickable via an "extended" button in the header.
  */
 export const createCountryCard = (country: CountryView, onOpen: (c: CountryView) => void): HTMLElement => {
@@ -45,25 +91,7 @@ export const createCountryCard = (country: CountryView, onOpen: (c: CountryView)
   const cardInner = document.createElement('article');
   cardInner.classList.add('card__inner');
 
-  let cardFlag: HTMLImageElement | HTMLSpanElement;
-
-  if (country.flagUrl) {
-    const img = document.createElement('img');
-    img.classList.add('flag');
-    img.src = country.flagUrl;
-    img.alt = `Flag: ${country.name}`;
-    img.width = 64;
-    img.height = 48;
-    img.loading = 'lazy';
-    img.decoding = 'async';
-    cardFlag = img;
-  } else {
-    const span = document.createElement('span');
-    span.classList.add('flag', 'flag--emoji');
-    span.setAttribute('aria-hidden', 'true');
-    span.textContent = country.flagEmoji || '';
-    cardFlag = span;
-  }
+  const cardFlag = createCountryFlagElement(country);
 
   const cardText = document.createElement('div');
   cardText.classList.add('card__text');

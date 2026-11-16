@@ -1,5 +1,6 @@
 import { SearchController, SearchView } from '../core/searchController';
 import { createCountryCard } from './components/countryCard';
+import { countryDetails } from './components/countryDialog';
 import { createHeader } from './components/header';
 import { createSearchSection } from './components/searchSection';
 import { loadingState, emptyState, errorState } from './components/states';
@@ -80,9 +81,27 @@ export const mountApp = (host: HTMLElement, controller: SearchController): void 
 
   resultsInner.replaceChildren(...viewNodes(state.view, controller));
 
+  const dialog = document.createElement('dialog');
+  dialog.classList.add('details');
+  dialog.setAttribute('aria-labelledby', 'details-title');
+  //dialog.addEventListener('click', () => controller.closeDetails());
+
+  // Clicking on the backdrop (outside the content area) closes the window.
+  dialog.addEventListener('click', (e: Event) => {
+    if (e.target === dialog) {
+      controller.closeDetails();
+    }
+  });
+
+  dialog.addEventListener('close', () => {
+    if (controller.getState().selected) {
+      controller.closeDetails();
+    }
+  });
+
   results.append(resultsTitle, resultsStatus, resultsInner);
   main.append(searchSection, results);
-  host.append(header, main);
+  host.append(header, main, dialog);
 
   const renderHistory = (history: readonly string[]): void => {
     if (!historySlot) return;
@@ -111,6 +130,18 @@ export const mountApp = (host: HTMLElement, controller: SearchController): void 
       resultsInner.replaceChildren(...viewNodes(next.view, controller));
       resultsInner.setAttribute('aria-busy', String(next.view.status === 'loading'));
       resultsStatus.textContent = announce(next.view);
+    }
+
+    if (next.selected !== prev.selected) {
+      if (next.selected) {
+        dialog.replaceChildren(...countryDetails(next.selected, () => controller.closeDetails()));
+
+        if (!dialog.open) {
+          dialog.showModal();
+        }
+      } else if (dialog.open) {
+        dialog.close();
+      }
     }
   });
 };
